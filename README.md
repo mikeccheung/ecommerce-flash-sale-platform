@@ -8,7 +8,7 @@ This project sets up an e-commerce flash sale platform using AWS services. It in
 ### Prerequisites
 - Terraform installed.
 - AWS CLI installed and configured with appropriate permissions.
-- S3 bucket and DynamoDB table defined for Terraform state.
+- S3 bucket (in this case, "ecommerce-flash-sale-platform-terraform-state-bucket") and DynamoDB table (in this case, named "terraform-locks" with "LockID" as a string for the partition key) defined for Terraform state.
 
 ### Setup and Deployment
 1. Clone the repository.

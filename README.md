@@ -30,6 +30,7 @@ Architectural decisions:
 
 Known issues:
 - Currently still has monolithic characteristics due to Lambdas bein dependent on other microservices, if one goes down, the service as a whole is interrupted. Implementing retries and circuit-breakers in the Lambdas, or using services such as EventBridge or SQS can be implemented to mitigate this.
+- Conflict persists with API Gateway stage creation; temporary workaround applied (comment out Deployment stage, run terraform apply, uncomment, run terraform apply again).
 
 Future Enhancements:
 - Microservices should live in separate accounts and communicate via API Gateway

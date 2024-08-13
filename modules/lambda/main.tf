@@ -1,63 +1,87 @@
 resource "aws_lambda_function" "user_service" {
   function_name = "user_service_lambda-${var.environment}"
   role          = aws_iam_role.lambda_exec_role.arn
-  handler       = "scripts/user_service_lambda.handler"
+  handler       = "user_service_lambda.handler"
   runtime       = "python3.8"
   
-  filename      = "${path.module}/scripts/user_service_lambda.py"
+  filename      = "${path.module}/scripts/user_service_lambda.zip"
   
-  source_code_hash = filebase64sha256("${path.module}/scripts/user_service_lambda.py")
+  source_code_hash = filebase64sha256("${path.module}/scripts/user_service_lambda.zip")
   
   environment {
     variables = {
       ENVIRONMENT = var.environment
     }
   }
+}
+
+resource "aws_lambda_permission" "user_service_apigw" {
+  statement_id  = "AllowExecutionFromAPIGateway"
+  action        = "lambda:InvokeFunction"
+  function_name = aws_lambda_function.user_service.function_name
+  principal     = "apigateway.amazonaws.com"
+  source_arn    = "${var.api_gateway_arn}/*"
 }
 
 resource "aws_lambda_function" "order_service" {
   function_name = "order_service_lambda-${var.environment}"
   role          = aws_iam_role.lambda_exec_role.arn
-  handler       = "scripts/order_service_lambda.handler"
+  handler       = "order_service_lambda.handler"
   runtime       = "python3.8"
   
-  filename      = "${path.module}/scripts/order_service_lambda.py"
+  filename      = "${path.module}/scripts/order_service_lambda.zip"
   
-  source_code_hash = filebase64sha256("${path.module}/scripts/order_service_lambda.py")
+  source_code_hash = filebase64sha256("${path.module}/scripts/order_service_lambda.zip")
   
   environment {
     variables = {
       ENVIRONMENT = var.environment
     }
   }
+}
+
+resource "aws_lambda_permission" "order_service_apigw" {
+  statement_id  = "AllowExecutionFromAPIGateway"
+  action        = "lambda:InvokeFunction"
+  function_name = aws_lambda_function.order_service.function_name
+  principal     = "apigateway.amazonaws.com"
+  source_arn    = "${var.api_gateway_arn}/*"
 }
 
 resource "aws_lambda_function" "inventory_service" {
   function_name = "inventory_service_lambda-${var.environment}"
   role          = aws_iam_role.lambda_exec_role.arn
-  handler       = "scripts/inventory_service_lambda.handler"
+  handler       = "inventory_service_lambda.handler"
   runtime       = "python3.8"
   
-  filename      = "${path.module}/scripts/inventory_service_lambda.py"
+  filename      = "${path.module}/scripts/inventory_service_lambda.zip"
   
-  source_code_hash = filebase64sha256("${path.module}/scripts/inventory_service_lambda.py")
+  source_code_hash = filebase64sha256("${path.module}/scripts/inventory_service_lambda.zip")
   
   environment {
     variables = {
       ENVIRONMENT = var.environment
     }
   }
+}
+
+resource "aws_lambda_permission" "inventory_service_apigw" {
+  statement_id  = "AllowExecutionFromAPIGateway"
+  action        = "lambda:InvokeFunction"
+  function_name = aws_lambda_function.inventory_service.function_name
+  principal     = "apigateway.amazonaws.com"
+  source_arn    = "${var.api_gateway_arn}/*"
 }
 
 resource "aws_lambda_function" "product_service" {
   function_name = "product_service_lambda-${var.environment}"
   role          = aws_iam_role.lambda_exec_role.arn
-  handler       = "scripts/product_service_lambda.handler"
+  handler       = "product_service_lambda.handler"
   runtime       = "python3.8"
   
-  filename      = "${path.module}/scripts/product_service_lambda.py"
+  filename      = "${path.module}/scripts/product_service_lambda.zip"
   
-  source_code_hash = filebase64sha256("${path.module}/scripts/product_service_lambda.py")
+  source_code_hash = filebase64sha256("${path.module}/scripts/product_service_lambda.zip")
   
   environment {
     variables = {
@@ -66,21 +90,37 @@ resource "aws_lambda_function" "product_service" {
   }
 }
 
+resource "aws_lambda_permission" "product_service_apigw" {
+  statement_id  = "AllowExecutionFromAPIGateway"
+  action        = "lambda:InvokeFunction"
+  function_name = aws_lambda_function.product_service.function_name
+  principal     = "apigateway.amazonaws.com"
+  source_arn    = "${var.api_gateway_arn}/*"
+}
+
 resource "aws_lambda_function" "order_processing" {
   function_name = "order_processing_lambda-${var.environment}"
   role          = aws_iam_role.lambda_exec_role.arn
-  handler       = "scripts/order_processing_lambda.handler"
+  handler       = "order_processing_lambda.handler"
   runtime       = "python3.8"
   
-  filename      = "${path.module}/scripts/order_processing_lambda.py"
+  filename      = "${path.module}/scripts/order_processing_lambda.zip"
   
-  source_code_hash = filebase64sha256("${path.module}/scripts/order_processing_lambda.py")
+  source_code_hash = filebase64sha256("${path.module}/scripts/order_processing_lambda.zip")
   
   environment {
     variables = {
       ENVIRONMENT = var.environment
     }
   }
+}
+
+resource "aws_lambda_permission" "order_processing_apigw" {
+  statement_id  = "AllowExecutionFromAPIGateway"
+  action        = "lambda:InvokeFunction"
+  function_name = aws_lambda_function.order_processing.function_name
+  principal     = "apigateway.amazonaws.com"
+  source_arn    = "${var.api_gateway_arn}/*"
 }
 
 data "aws_caller_identity" "current" {}

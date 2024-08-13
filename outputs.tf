@@ -1,8 +1,7 @@
-# Comment these out if the modules aren't ready
-# output "api_gateway_url" {
-#   description = "The base URL of the API Gateway"
-#   value       = module.api_gateway.api_url
-# }
+output "api_gateway_url" {
+  description = "The base URL of the API Gateway"
+  value       = module.api_gateway.api_url
+}
 
 output "user_service_lambda_arn" {
   description = "ARN of the User Service Lambda function"

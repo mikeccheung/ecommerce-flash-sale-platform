@@ -14,3 +14,8 @@ variable "s3_bucket_arn" {
   description = "The ARN of the S3 bucket"
   type        = string
 }
+
+variable "api_gateway_arn" {
+  description = "The ARN of the API Gateway"
+  type        = string
+}
